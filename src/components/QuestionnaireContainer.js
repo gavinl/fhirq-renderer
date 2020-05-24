@@ -1,4 +1,4 @@
-import q from "../resx/questionnaire/cqfq.json"
+m "../resx/questionnaire/cqfq.json"
 import Questionnaire from "./Questionnaire";
 import React from "react";
 

@@ -25,4 +25,3 @@ const Questionnaire = ({questionnaire}) => {
 }
 
 export default Questionnaire;
-
