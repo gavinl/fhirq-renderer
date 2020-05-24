@@ -1,6 +1,6 @@
 import React from "react";
 
-const Question = (question) => {
+const Question = ({ question }) => {
   return <pre>{JSON.stringify(question)}</pre>;
 };
 

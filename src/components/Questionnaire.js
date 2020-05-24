@@ -2,8 +2,7 @@ import React, { useEffect } from "react";
 import Group from "./Group";
 import Question from "./Question";
 
-const Questionnaire = (props) => {
-  const questionnaire = props.questionnaire; // TODO: fix
+const Questionnaire = ({ questionnaire }) => {
   useEffect(() => {
     console.log(questionnaire);
   }, [questionnaire]);
@@ -11,7 +10,13 @@ const Questionnaire = (props) => {
   return (
     <>
       <h1>{questionnaire.title}</h1>
-      <h2>{JSON.stringify(questionnaire.meta)}</h2>
+      <h5>
+        {`Id: ${questionnaire.id} ver ${
+          questionnaire.meta.versionId
+        } last updated ${new Date(
+          questionnaire.meta.lastUpdated
+        ).toLocaleString()}`}
+      </h5>
       <ul>
         {questionnaire.item.map((i) => {
           switch (i.type) {
