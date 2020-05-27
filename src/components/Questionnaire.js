@@ -1,22 +1,19 @@
-import React, { useEffect } from "react";
+import React from "react";
+import PropTypes from "prop-types";
 import Group from "./Group";
 import Question from "./Question";
 
 const Questionnaire = ({ questionnaire }) => {
-  useEffect(() => {
-    console.log(questionnaire);
-  }, [questionnaire]);
-
   return (
     <>
       <h1>{questionnaire.title}</h1>
-      <h5>
+      <small>
         {`Id: ${questionnaire.id} ver ${
           questionnaire.meta.versionId
         } last updated ${new Date(
           questionnaire.meta.lastUpdated
         ).toLocaleString()}`}
-      </h5>
+      </small>
       <ul>
         {questionnaire.item.map((i) => {
           switch (i.type) {
@@ -37,6 +34,10 @@ const Questionnaire = ({ questionnaire }) => {
       </ul>
     </>
   );
+};
+
+Questionnaire.propTypes = {
+  questionnaire: PropTypes.object.isRequired,
 };
 
 export default Questionnaire;
