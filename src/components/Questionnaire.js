@@ -2,6 +2,7 @@ import React from "react";
 import PropTypes from "prop-types";
 import Group from "./Group";
 import Question from "./Question";
+import "./Questionnaire.scss"
 
 const Questionnaire = ({ questionnaire }) => {
   return (
@@ -10,11 +11,11 @@ const Questionnaire = ({ questionnaire }) => {
       <small>
         {`Id: ${questionnaire.id} ver ${
           questionnaire.meta.versionId
-        } last updated ${new Date(
-          questionnaire.meta.lastUpdated
-        ).toLocaleString()}`}
+          } last updated ${new Date(
+            questionnaire.meta.lastUpdated
+          ).toLocaleString()}`}
       </small>
-      <ul>
+      <ul className="item-map">
         {questionnaire.item.map((i) => {
           switch (i.type) {
             case "group":
