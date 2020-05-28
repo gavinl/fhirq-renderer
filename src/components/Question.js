@@ -1,19 +1,19 @@
 import React, { useReducer, useEffect } from "react";
 import PropTypes from "prop-types";
+import FhirText from "./FhirText"
 import { actionTypes, reducer } from "../reducers/questionnaireReducer";
 
 const Question = (props) => {
     const question = props.item;
-    const [, dispatch] = useReducer(reducer, {
-        questionnaire: question,
-        questions: [],
-    });
+    useEffect(() => console.log(question.type))
 
-    useEffect(() => {
-        dispatch({ type: actionTypes.registerQuestion, payload: question });
-    }, [question]);
+    switch (question.type) {
 
-    return <pre>{JSON.stringify(question)}</pre>;
+        case "text":
+            return <FhirText question={question} />
+        default:
+            return <code>{JSON.stringify(question, null, 2)}</code>
+    }
 };
 
 Question.propTypes = {
