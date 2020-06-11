@@ -6,3 +6,6 @@ disable-default-queries: false
 paths-ignore:
   - "**/node_modules/"
 
+paths:
+  - src/
+
