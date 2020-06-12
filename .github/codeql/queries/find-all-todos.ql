@@ -1,7 +1,7 @@
 /**
  * @name TODO
  * @description TODO reminder
- * @id my-custom-queries/find-all-comments
+ * @id fhirq-renderer/find-all-todos
  * @tags comments
  * @kind problem
  * @problem.severity warning
