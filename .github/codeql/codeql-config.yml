@@ -1,11 +1,10 @@
-name: "All the goodness from lgtm.com"
+name: "fhirq-renderer codeql config"
 disable-default-queries: false
-#queries:
+queries:
 #  - uses: security-and-quality # same as the lgtm-full suite
+  - name: fhirq-renderer custom queries
+  - uses: ./.github/codeql/queries
 
 paths-ignore:
   - "**/node_modules/"
-
-paths:
-  - src/
-
+  - "**/resx/"
