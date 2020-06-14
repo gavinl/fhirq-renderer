@@ -5,8 +5,11 @@ import axios from "axios";
 const FhirText = ({ question }) => {
   const [valueSet, setValueSet] = useState([]);
 
-  useEffect(async () => {
-    try {
+  useEffect(() => {
+    async function fetchData() {
+      console.log(
+        "getting question.answerValueSet: " + question.answerValueSet
+      );
       const avs = await axios.get(question.answerValueSet, {
         headers: {
           Accept: "application/json+fhir",
@@ -16,13 +19,10 @@ const FhirText = ({ question }) => {
 
       // <pre> them out for now
       setValueSet(avs.data);
-    } catch (err) {
-      console.error(
-        `unable to grab question.answerValueSet ${question.answerValueSet}`,
-        err
-      );
     }
+    fetchData();
   }, []);
+
   return (
     <div>
       <div>
