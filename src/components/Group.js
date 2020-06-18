@@ -3,9 +3,6 @@ import PropTypes from "prop-types";
 import Question from "./Question";
 
 const Group = ({ item }) => {
-  useEffect(() => {
-    console.log(item);
-  });
   return (
     <>
       <div id={item.linkId} style={{ border: "1px solid black" }}>
@@ -13,9 +10,9 @@ const Group = ({ item }) => {
         {item.item.map((i) => {
           switch (i.type) {
             case "group":
-              return <Group key={i.itemId} item={i} />;
+              return <Group key={i.linkId} item={i} />;
             default:
-              return <Question key={i.itemId} item={i} />;
+              return <Question key={i.linkId} item={i} />;
           }
         })}
       </div>

@@ -4,24 +4,37 @@ import axios from "axios";
 
 const FhirText = ({ question }) => {
   const [valueSet, setValueSet] = useState([]);
+  const [isLoading, setIsLoading] = useState(false);
 
   useEffect(() => {
     async function fetchData() {
-      console.log(
-        "getting question.answerValueSet: " + question.answerValueSet
-      );
-      const avs = await axios.get(question.answerValueSet, {
-        headers: {
-          Accept: "application/json+fhir",
-        },
-      });
-      // the values we want are actually in the CodeSystem.....................
-
-      // <pre> them out for now
-      setValueSet(avs.data);
+      try {
+        console.group("choice", question);
+        if (question.answerValueSet) {
+          console.log(`fetching ${question.answerValueSet}`);
+          const avs = await axios.get(question.answerValueSet, {
+            headers: {
+              Accept: "application/json+fhir",
+            },
+          });
+          // the values we want are actually in the CodeSystem.....................
+          console.log("got avs", avs);
+          // <pre> them out for now
+          setValueSet(avs.data);
+        }
+      } catch (err) {
+        console.error(err);
+      } finally {
+        console.groupEnd();
+        setIsLoading(false);
+      }
     }
     fetchData();
   }, []);
+
+  if (isLoading) {
+    return <div>Loading valueSet!</div>;
+  }
 
   return (
     <div>
@@ -29,10 +42,13 @@ const FhirText = ({ question }) => {
         <label>{question.text}</label>
       </div>
       <div>
-        <select></select>
-        <pre className="debug-valueset">
-          {JSON.stringify(valueSet, null, 2)}
-        </pre>
+        <select>
+          <option>Select...</option>
+          {valueSet.map((vs) => {
+            console.log(vs);
+          })}
+        </select>
+        <pre className="debug-valueset">{JSON.stringify(valueSet)}</pre>
         <pre>{JSON.stringify(question, null, 2)}</pre>
       </div>
     </div>
