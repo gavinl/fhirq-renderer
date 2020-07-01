@@ -1,7 +1,7 @@
 /**
  * @name debugger statements
  * @description flag all debugger statements
- * @id fhirq-renderer/find-all-debuggers
+ * @id js/debugger-statements
  * @tags debugger
  * @kind problem
  * @problem.severity warning
