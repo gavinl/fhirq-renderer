@@ -6,25 +6,28 @@ import FhirChoice from "./FhirChoice";
 import "./Question.scss";
 
 const Question = (props) => {
-  const question = props.item;
+    const question = props.item;
 
-  switch (question.type) {
-    case "text":
-      return <FhirText question={question} />;
+    switch (question.type) {
+        case "text":
+            return <FhirText question={question}/>;
 
-    case "choice":
-      return <FhirChoice question={question} />;
+        case "choice":
+            return <FhirChoice question={question}/>;
 
-    default:
-      return (
-        <code className="unhandled-question-type">
-          {JSON.stringify(question, null, 2)}
-        </code>
-      );
-  }
+        default:
+            return (
+                <div className="unhandled-question-type">
+                  <h3>{question.type} <span className="question-link-id">{question["linkId"]}</span></h3>
+                    <pre>
+                        {JSON.stringify(question, null, 2)}
+                    </pre>
+                </div>
+            );
+    }
 };
 
 Question.propTypes = {
-  item: PropTypes.object.isRequired,
+    item: PropTypes.object.isRequired,
 };
 export default Question;

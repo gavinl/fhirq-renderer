@@ -1,7 +1,20 @@
-pre {
-  .unhandled-question {
-    background-color: lightgrey;
-    border: solid 1px black;
-    padding: 0.5em;
+$color: red;
+div {
+  .unhandled-question-type {
+    border: dashed 1px $color;
+    padding: 1.5em;
+    margin: 1em;
+  }
+
+  .question-link-id {
+    background-color: scale-color(red, $lightness: 90%);
+    padding: .1em .5em .1em .5em;
+    font-weight: normal;
+
+    &:before {
+      color: lightgrey;
+      font-weight: bolder;
+      content: "linkId: "
+    }
   }
 }

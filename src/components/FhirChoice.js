@@ -1,61 +1,72 @@
-import React, { useState, useEffect } from "react";
+import React, {useState, useEffect} from "react";
 import PropTypes from "prop-types";
 import axios from "axios";
 
-const FhirText = ({ question }) => {
-  const [valueSet, setValueSet] = useState([]);
-  const [isLoading, setIsLoading] = useState(false);
+const FhirChoice = ({question}) => {
+    const [valueSet, setValueSet] = useState([]);
+    const [isLoading, setIsLoading] = useState(false);
 
-  useEffect(() => {
-    async function fetchData() {
-      try {
-        console.group("choice", question);
-        if (question.answerValueSet) {
-          console.log(`fetching ${question.answerValueSet}`);
-          const avs = await axios.get(question.answerValueSet, {
-            headers: {
-              Accept: "application/json+fhir",
-            },
-          });
-          // the values we want are actually in the CodeSystem.....................
-          console.log("got avs", avs);
-          // <pre> them out for now
-          setValueSet(avs.data);
+    useEffect(() => {
+        async function fetchData() {
+            try {
+                const avs = await axios.get(question.answerValueSet, {
+                    headers: {
+                        Accept: "application/json+fhir",
+                    },
+                });
+                // the values we want are actually in the CodeSystem.....................
+                console.info(question.answerValueSet, avs.data);
+                setValueSet(avs.data);
+            } catch (err) {
+                console.error(err);
+            } finally {
+                setIsLoading(false);
+            }
         }
-      } catch (err) {
-        console.error(err);
-      } finally {
-        console.groupEnd();
-        setIsLoading(false);
-      }
+
+        fetchData();
+    }, []);
+
+    if (isLoading) {
+        return <div>Loading valueSet...</div>;
     }
-    fetchData();
-  }, []);
 
-  if (isLoading) {
-    return <div>Loading valueSet!</div>;
-  }
-
-  return (
-    <div>
-      <div>
-        <label>{question.text}</label>
-      </div>
-      <div>
-        <select>
-          <option>Select...</option>
-          {valueSet.map((vs) => {
-            console.log(vs);
-          })}
-        </select>
-        <pre className="debug-valueset">{JSON.stringify(valueSet)}</pre>
-        <pre>{JSON.stringify(question, null, 2)}</pre>
-      </div>
-    </div>
-  );
+    if (valueSet && valueSet.expansion) {
+        return (
+            <div>
+                <div>
+                    <label>{question.text}</label>
+                </div>
+                <div>
+                    <select>
+                        {
+                            valueSet.expansion.contains.map(x => {
+                                return <option key={x.code} value={x.code}>{x.display}</option>
+                            })
+                        }
+                    </select>
+                    <pre className="debug-valueset">{JSON.stringify(valueSet)}</pre>
+                    <pre>{JSON.stringify(question, null, 2)}</pre>
+                </div>
+            </div>
+        );
+    }
+    // else
+    return (
+        <div>
+            <div>
+                <label>{question.text}</label>
+            </div>
+            <div>
+                <pre>
+                    {JSON.stringify(2, null, valueSet)}
+                </pre>
+            </div>
+        </div>
+    );
 };
 
-FhirText.propTypes = {
-  question: PropTypes.object.isRequired,
+FhirChoice.propTypes = {
+    question: PropTypes.object.isRequired,
 };
-export default FhirText;
+export default FhirChoice;
