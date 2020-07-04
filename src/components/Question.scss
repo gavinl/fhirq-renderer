@@ -8,13 +8,13 @@ div {
 
   .question-link-id {
     background-color: scale-color(red, $lightness: 90%);
-    padding: .1em .5em .1em .5em;
+    padding: 0.1em 0.5em 0.1em 0.5em;
     font-weight: normal;
 
     &:before {
       color: lightgrey;
       font-weight: bolder;
-      content: "linkId: "
+      content: "linkId: ";
     }
   }
 }
