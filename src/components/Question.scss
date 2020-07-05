@@ -1,20 +1,24 @@
-$color: red;
-div {
-  .unhandled-question-type {
-    border: dashed 1px $color;
-    padding: 1.5em;
-    margin: 1em;
+$errColor: red;
+$errMute: darkgrey;
+
+.unhandled-question {
+  margin: {
+    left: 1em;
+    right: 1em;
   }
-
-  .question-link-id {
-    background-color: scale-color(red, $lightness: 90%);
-    padding: 0.1em 0.5em 0.1em 0.5em;
-    font-weight: normal;
-
-    &:before {
-      color: lightgrey;
-      font-weight: bolder;
-      content: "linkId: ";
+  .header {
+    border: solid 1px $errColor;
+    background-color: scale-color($errColor, $lightness: 90%);
+    padding: {
+      left: 0.5em;
+      right: 0.5em;
     }
+    font-weight: bold;
+  }
+  .raw {
+    margin-top: 0;
+    background-color: scale-color($errMute, $lightness: 80%);
+    border: solid 1px $errMute;
+    border-top: none;
   }
 }
