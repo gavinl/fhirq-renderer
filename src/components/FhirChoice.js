@@ -1,21 +1,20 @@
-import React, {useState, useEffect} from "react";
+import React, { useState, useEffect } from "react";
 import PropTypes from "prop-types";
 import axios from "axios";
 
-const FhirChoice = ({question}) => {
+const FhirChoice = ({ question }) => {
     const [valueSet, setValueSet] = useState([]);
     const [isLoading, setIsLoading] = useState(false);
 
     useEffect(() => {
         async function fetchData() {
             try {
+                console.info(`fetching ${question.answerValueSet}...`);
                 const avs = await axios.get(question.answerValueSet, {
                     headers: {
                         Accept: "application/json+fhir",
                     },
                 });
-                // the values we want are actually in the CodeSystem.....................
-                console.info(question.answerValueSet, avs.data);
                 setValueSet(avs.data);
             } catch (err) {
                 console.error(err);
@@ -28,7 +27,7 @@ const FhirChoice = ({question}) => {
     }, []);
 
     if (isLoading) {
-        return <div>Loading valueSet...</div>;
+        return <div>Loading...</div>;
     }
 
     if (valueSet && valueSet.expansion) {
@@ -39,21 +38,21 @@ const FhirChoice = ({question}) => {
                 </div>
                 <div>
                     <select>
+                        <option selected disabled>Choose...</option>
+                        { /* TODO: 👆 define/use extension for display text */ }
                         {
                             valueSet.expansion.contains.map(x => {
                                 return <option key={x.code} value={x.code}>{x.display}</option>
                             })
                         }
                     </select>
-                    <pre className="debug-valueset">{JSON.stringify(valueSet)}</pre>
-                    <pre>{JSON.stringify(question, null, 2)}</pre>
                 </div>
             </div>
         );
     }
     // else
     return (
-        <div>
+        <div className="weird-valueset">
             <div>
                 <label>{question.text}</label>
             </div>
