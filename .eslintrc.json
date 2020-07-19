@@ -1,16 +1,13 @@
 {
     "env": {
         "browser": true,
-        "es6": true
+        "es2020": true,
+        "node": true
     },
     "extends": [
         "eslint:recommended",
         "plugin:react/recommended"
     ],
-    "globals": {
-        "Atomics": "readonly",
-        "SharedArrayBuffer": "readonly"
-    },
     "parserOptions": {
         "ecmaFeatures": {
             "jsx": true
@@ -22,5 +19,12 @@
         "react"
     ],
     "rules": {
+    },
+    "settings": {
+        "react": {
+            "createClass": "createReactClass",
+            "pragma": "React",
+            "version": "detect"
+        }
     }
 }
