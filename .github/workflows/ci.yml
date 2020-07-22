@@ -5,10 +5,11 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
-      - run: |
-        npm install
-        npm install -g npx
-        npx eslint .
-        npm test -- --watchAll=false
-        npm build
-        
+
+    - name: npm test/build
+      run: |
+      npm install
+      npm install -g npx
+      npx eslint .
+      npm test -- --watchAll=false
+      npm build
