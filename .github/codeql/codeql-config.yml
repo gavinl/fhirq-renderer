@@ -3,7 +3,7 @@ disable-default-queries: false
 queries:
 #  - uses: security-and-quality # same as the lgtm-full suite
   - name: fhirq-renderer custom queries
-  - uses: ./.github/codeql/queries
+    uses: ./.github/codeql/queries
 
 paths-ignore:
   - "**/node_modules/"
