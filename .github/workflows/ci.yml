@@ -7,7 +7,7 @@ jobs:
       - uses: actions/checkout@v2
       - run: |
         npm install
-        npx eslint .
+        "npx eslint ."
         npm test -- --watchAll=false
         npm build
         
