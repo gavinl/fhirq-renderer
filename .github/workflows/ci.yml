@@ -1,13 +1,18 @@
 name: CI
-on: push
+
+on: [push]
+
 jobs:
   build:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
 
-      - run: |
-        npm install
-        npx eslint .
-        npm test -- --watchAll=false
-        npm build
+      - uses: actions/setup-node@v1
+        with:
+          node-version: 12.x
+      - run: npm install
+      - run: npx eslint .
+      - run: npm test -- --watchAll=false
+      - run: npm build
+
