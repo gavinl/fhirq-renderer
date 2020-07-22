@@ -6,10 +6,8 @@ jobs:
     steps:
       - uses: actions/checkout@v2
 
-    - name: npm test/build
-      run: |
-      npm install
-      npm install -g npx
-      npx eslint .
-      npm test -- --watchAll=false
-      npm build
+        run: |
+          npm install
+          npx eslint .
+          npm test -- --watchAll=false
+          npm build
