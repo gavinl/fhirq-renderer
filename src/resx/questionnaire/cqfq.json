@@ -12,7 +12,9 @@
   "url": "http://hl7.org/fhir/Questionnaire/3141",
   "title": "Cancer Quality Forum Questionnaire 2012",
   "status": "draft",
-  "subjectType": ["Patient"],
+  "subjectType": [
+    "Patient"
+  ],
   "date": "2012-01",
   "item": [
     {
@@ -108,7 +110,11 @@
               "type": "choice",
               "answerValueSet": "http://sqlonfhir-r4.azurewebsites.net/fhir/ValueSet/a015b6a1ac024dc19baec940be2c1695"
             },
-            { "linkId": "2.1.3", "text": "Text 2.1.3", "type": "string" }
+            {
+              "linkId": "2.1.3",
+              "text": "Text 2.1.3",
+              "type": "string"
+            }
           ]
         }
       ]
