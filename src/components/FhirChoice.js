@@ -1,11 +1,13 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useReducer } from "react";
 import PropTypes from "prop-types";
 import axios from "axios";
+import { reducer, actionTypes } from "../reducers/questionnaireReducer";
 
 const FhirChoice = ({ question }) => {
     const [valueSet, setValueSet] = useState([]);
     const [label, setLabel] = useState([]);
     const [isLoading, setIsLoading] = useState(false);
+    const [answer, dispatch] = useReducer(reducer, "");
 
     useEffect(() => {
         async function fetchData() {
@@ -40,13 +42,24 @@ const FhirChoice = ({ question }) => {
 
     return (
         <div className="form-group">
-            <label htmlFor={question.linkId}>
-                {label}
-            </label>
-            <select className="form-control" required={question.required} id={question.linkId}>
-                {valueSet.map(vs =>
-                    <option key={vs.valueCoding.code} value={vs.valueCoding.code}>{vs.valueCoding.display}</option>)
+            <label htmlFor={question.linkId}>{label}</label>
+            <select
+                className="form-control"
+                required={question.required}
+                id={question.linkId}
+                value={answer}
+                onChange={(e) =>
+                    dispatch({ type: actionTypes.setAnswer, payload: e.target.value })
                 }
+            >
+                {valueSet.map((vs) => (
+                    <option
+                        key={vs.valueCoding.code}
+                        value={vs.valueCoding.code}
+                    >
+                        {vs.valueCoding.display}
+                    </option>
+                ))}
             </select>
             <pre>{JSON.stringify(question, null, 2)}</pre>
         </div>
