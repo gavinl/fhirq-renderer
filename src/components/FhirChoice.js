@@ -39,12 +39,14 @@ const FhirChoice = ({ question }) => {
     }
 
     return (
-        <div>
-            <label htmlFor={question.linkId} className="form-label">
+        <div className="form-group">
+            <label htmlFor={question.linkId}>
                 {label}
             </label>
-            <select className="form-control" required={question.required || false} id={question.linkId}>
-				{valueSet.map(vs => <option key={vs.valueCoding.code} value={vs.valueCoding.code}>{vs.valueCoding.display}</option>)}
+            <select className="form-control" required={question.required} id={question.linkId}>
+                {valueSet.map(vs =>
+                    <option key={vs.valueCoding.code} value={vs.valueCoding.code}>{vs.valueCoding.display}</option>)
+                }
             </select>
             <pre>{JSON.stringify(question, null, 2)}</pre>
         </div>

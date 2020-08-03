@@ -3,26 +3,34 @@ import PropTypes from "prop-types";
 import FhirText from "./FhirText";
 import FhirChoice from "./FhirChoice";
 
-import "./Question.scss";
-
 const Question = (props) => {
   const question = props.item;
 
   switch (question.type) {
     case "text":
-      return <FhirText question={question} />;
+      return (
+        <div className="row">
+          <FhirText question={question} />
+        </div>
+      );
 
     case "choice":
-      return <FhirChoice question={question} />;
+      return (
+        <div className="row">
+          <FhirChoice question={question} />
+        </div>
+      );
 
     default:
       return (
-        <div className="unhandled-question">
-          <div className="header">
+        <div className="card">
+          <div className="card-header alert alert-danger">
             <span className="type">{question.type}</span>{" "}
             <span className="link-id">{question["linkId"]}</span>
           </div>
-          <pre className="raw">{JSON.stringify(question, null, 2)}</pre>
+          <div className="card-body">
+            <pre className="raw">{JSON.stringify(question, null, 2)}</pre>
+          </div>
         </div>
       );
   }
