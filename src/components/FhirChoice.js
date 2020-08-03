@@ -49,51 +49,6 @@ const FhirChoice = ({ question }) => {
             <pre>{JSON.stringify(question, null, 2)}</pre>
         </div>
     );
-
-    // 	if (valueSet.expansion) {
-    // 		return (
-    // 			<div>
-    // 				<div>
-    // 					<label>{label}</label>
-    // 				</div>
-    // 				<div>
-    // 					<select>
-    // 						<option selected disabled>
-    // 							Choose...
-    // 						</option>
-    // 						{/* TODO: 👆 define/use extension for display text */}
-    // 						{valueSet.expansion.contains.map((x) => {
-    // 							return (
-    // 								<option key={x.code} value={x.code}>
-    // 									{x.display}
-    // 								</option>
-    // 							);
-    // 						})}
-    // 					</select>
-    // 				</div>
-    // 			</div>
-    // 		);
-    // 	}
-    // 	// else
-    // 	return (
-    // 		<div className="unhandled-valueset">
-    // 			<div>
-    // 				<label>{label}</label>
-    // 			</div>
-    // 			<div>
-    // 				<pre>{JSON.stringify(question, null, 2)}</pre>
-    // 			</div>
-    // 		</div>
-    // 	);
-    // }
-    // return (
-    // 	<div>
-    // 		<div className="form-label">
-    // 			{label}
-    // 		</div>
-    // 		<pre>{JSON.stringify(2, null, question)}</pre>
-    // 	</div>
-    // );
 };
 
 FhirChoice.propTypes = {
