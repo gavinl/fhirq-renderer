@@ -9,6 +9,17 @@ const FhirChoice = ({ question }) => {
     const [isLoading, setIsLoading] = useState(false);
     const [answer, dispatch] = useReducer(reducer, "");
 
+    
+    if(question.enableWhen) {
+        // TODO: multiple reducers? can we pack everything into a single?
+
+        // 1) dispatch each enableWhen to state
+        // 2) update SET_ANSWER to check list of enableWhen
+        //      2.1) state separate to questionnaire is required
+        // ........... do more research
+        //debugger;
+    }
+
     useEffect(() => {
         async function fetchData() {
             try {
