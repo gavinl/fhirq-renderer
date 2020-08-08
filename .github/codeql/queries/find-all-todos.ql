@@ -1,7 +1,7 @@
 /**
  * @name TODO
  * @description TODO reminder
- * @id my-custom-queries/find-all-comments
+ * @id js/todo-comments
  * @tags comments
  * @kind problem
  * @problem.severity warning
