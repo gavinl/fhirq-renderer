@@ -17,11 +17,12 @@ const Questionnaire = ({ questionnaire }) => {
         switch (i.type) {
           case "group":
             return (
-              <Group item={i} />
+              <Group key={i.linkId} item={i} />
             );
           default:
+            console.log(i.type)
             return (
-              <Question item={i} />
+              <Question key={i.linkId} item={i} />
             );
         }
       })}

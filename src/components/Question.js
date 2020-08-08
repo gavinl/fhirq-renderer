@@ -6,20 +6,23 @@ import FhirChoice from "./FhirChoice";
 const Question = (props) => {
   const question = props.item;
 
+  let component = null;
   switch (question.type) {
     case "text":
-      return (
+      component = (
         <div className="row">
           <FhirText question={question} />
         </div>
       );
+      break;
 
     case "choice":
-      return (
+      component = (
         <div className="row">
           <FhirChoice question={question} />
         </div>
       );
+      break;
 
     default:
       return (
@@ -34,6 +37,15 @@ const Question = (props) => {
         </div>
       );
   }
+
+  return (
+    <div className="card" key={question.linkId}>
+      <div className="card-header" title={`Id ${question.linkId}`}>{question.text || question.linkId}</div>
+      <div className="card-body">
+        {component}
+      </div>
+    </div>
+  );
 };
 
 Question.propTypes = {

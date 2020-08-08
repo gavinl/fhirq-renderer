@@ -8,14 +8,7 @@ const Group = ({ item }) =>
       case "group":
         return <Group key={i.linkId} item={i} />;
       default:
-        return (
-          <div className="card">
-            <div className="card-header" title={`Id ${item.linkId}`}>{item.text || item.linkId}</div>
-            <div className="card-body">
-              <Question key={i.linkId} item={i} />
-            </div>
-          </div>
-        );
+        return <Question item={i} key={i.linkId} />;
     }
   });
 

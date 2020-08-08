@@ -1,8 +1,8 @@
-export const actionTypes = {
+const actionTypes = {
   setAnswer: "SET_ANSWER",
 };
 
-export const reducer = (state, action) => {
+const reducer = (state, action) => {
   switch (action.type) {
     case actionTypes.setAnswer:
       console.log(action);
@@ -11,4 +11,9 @@ export const reducer = (state, action) => {
     default:
       return state;
   }
+};
+
+export default {
+  questionnaireReducer: reducer,
+  questionnaireActionTypes: actionTypes,
 };

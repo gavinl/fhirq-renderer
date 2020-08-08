@@ -1,16 +1,16 @@
 import React, { useState, useEffect, useReducer } from "react";
 import PropTypes from "prop-types";
 import axios from "axios";
-import { reducer, actionTypes } from "../reducers/questionnaireReducer";
+import qr from "../reducers/questionnaireReducer";
 
 const FhirChoice = ({ question }) => {
     const [valueSet, setValueSet] = useState([]);
     const [label, setLabel] = useState([]);
     const [isLoading, setIsLoading] = useState(false);
-    const [answer, dispatch] = useReducer(reducer, "");
+    const [answer, dispatch] = useReducer(qr.questionnaireReducer);
 
-    
-    if(question.enableWhen) {
+
+    if (question.enableWhen) {
         // TODO: multiple reducers? can we pack everything into a single?
 
         // 1) dispatch each enableWhen to state
@@ -38,14 +38,19 @@ const FhirChoice = ({ question }) => {
             }
         }
 
-        setLabel(`${question.linkId}: ${question.text}`);
         if (question.answerValueSet) {
             const data = fetchData();
             setValueSet(data);
         } else if (question.answerOption) {
             setValueSet(question.answerOption);
         }
-    }, []);
+        setLabel(`${question.linkId}: ${question.text}`);
+    }, [
+        question.linkId,
+        question.text,
+        question.answerOption,
+        question.answerValueSet
+    ]);
 
     if (isLoading) {
         return <div>Loading...</div>;
@@ -60,7 +65,7 @@ const FhirChoice = ({ question }) => {
                 id={question.linkId}
                 value={answer}
                 onChange={(e) =>
-                    dispatch({ type: actionTypes.setAnswer, payload: e.target.value })
+                    dispatch({ type: qr.questionnaireActionTypes.setAnswer, payload: e.target.value })
                 }
             >
                 {valueSet.map((vs) => (
