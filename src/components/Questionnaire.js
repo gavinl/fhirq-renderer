@@ -2,38 +2,30 @@ import React from "react";
 import PropTypes from "prop-types";
 import Group from "./Group";
 import Question from "./Question";
-import "./Questionnaire.scss"
+import moment from "moment";
 
 const Questionnaire = ({ questionnaire }) => {
   return (
-    <>
-      <h1>{questionnaire.title}</h1>
-      <small>
-        {`Id: ${questionnaire.id} ver ${
-          questionnaire.meta.versionId
-          } last updated ${new Date(
-            questionnaire.meta.lastUpdated
-          ).toLocaleString()}`}
-      </small>
-      <ul className="item-map">
-        {questionnaire.item.map((i) => {
-          switch (i.type) {
-            case "group":
-              return (
-                <li>
-                  <Group item={i} />
-                </li>
-              );
-            default:
-              return (
-                <li>
-                  <Question item={i} />
-                </li>
-              );
-          }
-        })}
-      </ul>
-    </>
+    <div>
+      <div className="jumbotron jumbotron-fluid">
+        <div className="container">
+          <h1 className="display-4">{questionnaire.title}</h1>
+          <p className="lead">Last updated {moment(questionnaire.meta.lastUpdated).format("LLLL")}.</p>
+        </div>
+      </div>
+      {questionnaire.item.map((i) => {
+        switch (i.type) {
+          case "group":
+            return (
+              <Group item={i} />
+            );
+          default:
+            return (
+              <Question item={i} />
+            );
+        }
+      })}
+    </div>
   );
 };
 
