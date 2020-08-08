@@ -1,0 +1,130 @@
+{
+  "resourceType": "Questionnaire",
+  "id": "chain-enablewhen",
+  "meta": {
+    "versionId": "1",
+    "lastUpdated": "2020-06-02T00:27:53.6213057+00:00"
+  },
+  "text": {
+    "status": "generated",
+    "div": "<div xmlns=\"http://www.w3.org/1999/xhtml\"><b>Test: Chained enable when</b><hr /><span style=\"color: gray;\">Publisher:</span> Telstra Health\r\n</div>"
+  },
+  "name": "1000167",
+  "title": "Test: Chained enable when",
+  "status": "draft",
+  "publisher": "Telstra Health",
+  "item": [
+    {
+      "linkId": "root",
+      "type": "group",
+      "item": [
+        {
+          "linkId": "tab-1",
+          "text": "GP Assessment",
+          "type": "group",
+          "item": [
+            {
+              "linkId": "BC009",
+              "text": "Was the patient referred for other examinations?",
+              "type": "choice",
+              "required": true,
+              "answerOption": [
+                {
+                  "valueCoding": {
+                    "system": "CTL1002240",
+                    "code": "Y",
+                    "display": "Yes"
+                  }
+                },
+                {
+                  "valueCoding": {
+                    "system": "CTL1002240",
+                    "code": "N",
+                    "display": "No"
+                  }
+                }
+              ]
+            },
+            {
+              "extension": [
+                {
+                  "url": "http://hl7.org/fhir/StructureDefinition/questionnaire-itemControl",
+                  "valueCodeableConcept": {
+                    "coding": [
+                      {
+                        "system": "http://hl7.org/fhir/questionnaire-item-control",
+                        "code": "drop-down"
+                      }
+                    ]
+                  }
+                }
+              ],
+              "linkId": "BC010",
+              "text": "Indicate which examinations",
+              "type": "choice",
+              "enableWhen": [
+                {
+                  "question": "BC009",
+                  "operator": "=",
+                  "answerCoding": {
+                    "system": "CTL1002240",
+                    "code": "Y"
+                  }
+                }
+              ],
+              "enableBehavior": "any",
+              "repeats": true,
+              "answerOption": [
+                {
+                  "valueCoding": {
+                    "system": "CTL1002241",
+                    "code": "1",
+                    "display": "Double contrast barium enema"
+                  }
+                },
+                {
+                  "valueCoding": {
+                    "system": "CTL1002241",
+                    "code": "2",
+                    "display": "Sigmoidoscopy"
+                  }
+                },
+                {
+                  "valueCoding": {
+                    "system": "CTL1002241",
+                    "code": "3",
+                    "display": "CT colonoscopy"
+                  }
+                },
+                {
+                  "valueCoding": {
+                    "system": "CTL1002241",
+                    "code": "4",
+                    "display": "Other"
+                  }
+                }
+              ]
+            },
+            {
+              "linkId": "BC011_2",
+              "text": "Specify",
+              "type": "string",
+              "enableWhen": [
+                {
+                  "question": "BC010",
+                  "operator": "=",
+                  "answerCoding": {
+                    "system": "CTL1002241",
+                    "code": "4"
+                  }
+                }
+              ],
+              "enableBehavior": "any",
+              "maxLength": 255
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

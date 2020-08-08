@@ -5,6 +5,7 @@ export const actionTypes = {
 export const reducer = (state, action) => {
   switch (action.type) {
     case actionTypes.setAnswer:
+      console.log(action);
       return state;
 
     default:

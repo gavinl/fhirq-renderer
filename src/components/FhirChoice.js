@@ -1,10 +1,24 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useReducer } from "react";
 import PropTypes from "prop-types";
 import axios from "axios";
+import { reducer, actionTypes } from "../reducers/questionnaireReducer";
 
 const FhirChoice = ({ question }) => {
     const [valueSet, setValueSet] = useState([]);
+    const [label, setLabel] = useState([]);
     const [isLoading, setIsLoading] = useState(false);
+    const [answer, dispatch] = useReducer(reducer, "");
+
+    
+    if(question.enableWhen) {
+        // TODO: multiple reducers? can we pack everything into a single?
+
+        // 1) dispatch each enableWhen to state
+        // 2) update SET_ANSWER to check list of enableWhen
+        //      2.1) state separate to questionnaire is required
+        // ........... do more research
+        //debugger;
+    }
 
     useEffect(() => {
         async function fetchData() {
@@ -15,52 +29,50 @@ const FhirChoice = ({ question }) => {
                         Accept: "application/json+fhir",
                     },
                 });
-                setValueSet(avs.data);
+                return avs.data;
             } catch (err) {
                 console.error(err);
+                return null;
             } finally {
                 setIsLoading(false);
             }
         }
 
-        fetchData();
+        setLabel(`${question.linkId}: ${question.text}`);
+        if (question.answerValueSet) {
+            const data = fetchData();
+            setValueSet(data);
+        } else if (question.answerOption) {
+            setValueSet(question.answerOption);
+        }
     }, []);
 
     if (isLoading) {
         return <div>Loading...</div>;
     }
 
-    if (valueSet && valueSet.expansion) {
-        return (
-            <div>
-                <div>
-                    <label>{question.text}</label>
-                </div>
-                <div>
-                    <select>
-                        <option selected disabled>Choose...</option>
-                        { /* TODO: 👆 define/use extension for display text */ }
-                        {
-                            valueSet.expansion.contains.map(x => {
-                                return <option key={x.code} value={x.code}>{x.display}</option>
-                            })
-                        }
-                    </select>
-                </div>
-            </div>
-        );
-    }
-    // else
     return (
-        <div className="weird-valueset">
-            <div>
-                <label>{question.text}</label>
-            </div>
-            <div>
-                <pre>
-                    {JSON.stringify(2, null, valueSet)}
-                </pre>
-            </div>
+        <div className="form-group">
+            <label htmlFor={question.linkId}>{label}</label>
+            <select
+                className="form-control"
+                required={question.required}
+                id={question.linkId}
+                value={answer}
+                onChange={(e) =>
+                    dispatch({ type: actionTypes.setAnswer, payload: e.target.value })
+                }
+            >
+                {valueSet.map((vs) => (
+                    <option
+                        key={vs.valueCoding.code}
+                        value={vs.valueCoding.code}
+                    >
+                        {vs.valueCoding.display}
+                    </option>
+                ))}
+            </select>
+            <pre>{JSON.stringify(question, null, 2)}</pre>
         </div>
     );
 };
