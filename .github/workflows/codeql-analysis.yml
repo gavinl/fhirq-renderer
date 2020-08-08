@@ -4,6 +4,7 @@ on:
   push:
   schedule:
     - cron: '0 16 * * 5'
+  workflow_dispatch:
 
 jobs:
   CodeQL-Build:
