@@ -24,12 +24,12 @@ const FhirChoice = ({ question }) => {
         async function fetchData() {
             try {
                 console.info(`fetching ${question.answerValueSet}...`);
-                const avs = await axios.get(question.answerValueSet, {
+                const response = await axios.get(question.answerValueSet, {
                     headers: {
                         Accept: "application/json+fhir",
                     },
                 });
-                return avs.data;
+                return response.data;
             } catch (err) {
                 console.error(err);
                 return null;
