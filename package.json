@@ -6,7 +6,6 @@
     "@testing-library/jest-dom": "^5.11.3",
     "@testing-library/react": "^10.4.9",
     "@testing-library/user-event": "^12.1.2",
-    "axios": "^0.19.2",
     "axios": "^0.20.0",
     "bootstrap": "^4.5.2",
     "moment": "^2.27.0",
