@@ -57,7 +57,7 @@ const FhirChoice = ({ question }) => {
     }
 
     return (
-        <div className="form-group">
+        <div className="max-w-sm rounded overflow-hidden shadow-lg">
             <label htmlFor={question.linkId}>{label}</label>
             <select
                 className="form-control"
