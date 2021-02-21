@@ -5,13 +5,13 @@
   "dependencies": {
     "@testing-library/jest-dom": "^5.11.6",
     "@testing-library/react": "^11.0.4",
-    "@testing-library/user-event": "^12.1.1",
+    "@testing-library/user-event": "^12.7.1",
     "axios": "^0.21.1",
     "bootstrap": "^4.5.2",
     "moment": "^2.28.0",
     "react": "^16.14.0",
     "react-dom": "^16.14.0",
-    "react-scripts": "^4.0.1"
+    "react-scripts": "^4.0.2"
   },
   "scripts": {
     "start": "react-scripts start",
